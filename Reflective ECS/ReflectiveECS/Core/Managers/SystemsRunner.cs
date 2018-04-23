@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ReflectiveECS.Core.ECS;
@@ -26,41 +27,52 @@ namespace ReflectiveECS.Core.Managers
 
         private void Run(ISystem system)
         {
-            // get the execute method which is marked with [Execute] attribute
-            var concrete = system.GetType();
-            var executeMethod = concrete.GetMethods()
-                .Single(m => m.GetCustomAttributes(typeof(ExecuteAttribute), false).Length > 0);
+            var executeMethod = GetExecuteMethod(system);
+            var shouldGetEntityItself = GetShouldGetEntityItself(executeMethod);
+            var componentParameterTypes = GetTypesOfComponentParameters(executeMethod, shouldGetEntityItself);
+            var matchedEntities = GetMatchingEntities(componentParameterTypes);
 
-            // will the entity itself be passed?
-            var executeAttribute = (ExecuteAttribute) executeMethod.GetCustomAttribute(typeof(ExecuteAttribute));
-            var getEntityItself = executeAttribute.GetEntityItself;
-
-            // get all parameters as components
-            var parameters = executeMethod.GetParameters();
-            var parameterTypes =
-                (getEntityItself ? parameters.Skip(1) : parameters) // if the entity itself will be passed, skip the first parameter
-                .Select(pi => pi.ParameterType).ToArray();
-
-            // match parameter components
-            var matchedEntities = _entitiesDatabase.GetMatchAll(parameterTypes);
-
-            // execute for all matches
             foreach (var entity in matchedEntities)
             {
-                // construct parameter array
-                var parameterList = new List<object>();
+                var parameters = PrepareParameters(componentParameterTypes, entity, shouldGetEntityItself).ToArray();
+                executeMethod.Invoke(system, parameters);
+            }
+        }
 
-                // if the entity itself will be passed, add it to the parameter array now
-                if (getEntityItself) parameterList.Add(entity);
+        private MethodInfo GetExecuteMethod(ISystem system)
+        {
+            // execute method is marked with [Execute] attribute
+            var systemType = system.GetType();
+            return systemType.GetMethods()
+                .Single(m => m.GetCustomAttributes(typeof(ExecuteAttribute), false).Length > 0);
+        }
 
-                foreach (var parameterType in parameterTypes)
-                {
-                    var componentInstance = entity.Get(parameterType);
-                    parameterList.Add(componentInstance);
-                }
+        private bool GetShouldGetEntityItself(MethodInfo executeMethod)
+        {
+            var executeAttribute = (ExecuteAttribute) executeMethod.GetCustomAttribute(typeof(ExecuteAttribute));
+            return executeAttribute.GetEntityItself;
+        }
 
-                // invoke execute method of system
-                executeMethod.Invoke(system, parameterList.ToArray());
+        private Type[] GetTypesOfComponentParameters(MethodInfo executeMethod, bool skipFirstParameter)
+        {
+            var parameters = executeMethod.GetParameters();
+            return (skipFirstParameter ? parameters.Skip(1): parameters)
+                .Select(pi => pi.ParameterType).ToArray();
+        }
+
+        private IEnumerable<Entity> GetMatchingEntities(Type[] componentTypes)
+        {
+            return _entitiesDatabase.GetMatchAll(componentTypes);
+        }
+
+        private IEnumerable<object> PrepareParameters(Type[] componentTypes, Entity entity,
+            bool shouldGetEntityItself)
+        {
+            if (shouldGetEntityItself) yield return entity;
+
+            foreach (var componentType in componentTypes)
+            {
+                yield return entity.Get(componentType);
             }
         }
     }
