@@ -40,10 +40,12 @@
   <ItemGroup>
     <Compile Include="EntitiesManager.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="Examples\ECS\DebugEntitiesSystem.cs" />
     <Compile Include="Examples\ECS\PosAndRotSys.cs" />
     <Compile Include="Examples\ECS\PosComp.cs" />
     <Compile Include="Examples\ECS\RotComp.cs" />
     <Compile Include="Examples\ECS\RotSys.cs" />
+    <Compile Include="ExecuteAttribute.cs" />
     <Compile Include="IComponent.cs" />
     <Compile Include="ISystem.cs" />
     <Compile Include="Program.cs" />
