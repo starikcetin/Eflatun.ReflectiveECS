@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ReflectiveECS.Core.ECS;
+using ReflectiveECS.Core.Managers.Caching;
 
 namespace ReflectiveECS.Core.Managers
 {
@@ -11,7 +12,7 @@ namespace ReflectiveECS.Core.Managers
         private readonly SystemsDatabase _systemsDatabase;
         private readonly EntitiesDatabase _entitiesDatabase;
 
-        private readonly Dictionary<ISystem, MethodInfo> _executeMethodsCache = new Dictionary<ISystem, MethodInfo>();
+        private readonly Dictionary<ISystem, SystemMetaData> _systemMetaDatas = new Dictionary<ISystem, SystemMetaData>();
 
         public SystemsRunner(SystemsDatabase systemsDatabase, EntitiesDatabase entitiesDatabase)
         {
@@ -22,7 +23,12 @@ namespace ReflectiveECS.Core.Managers
         public void Cache(ISystem system)
         {
             var executeMethodInfo = GetExecuteMethod(system);
-            _executeMethodsCache.Add(system, executeMethodInfo);
+            var parameterTypes = GetMethodParameterTypes(executeMethodInfo).ToArray();
+            var componentParameterTypes = FilterOutEntity(parameterTypes).ToArray();
+
+            var newSystemMeta = new SystemMetaData(executeMethodInfo, parameterTypes, componentParameterTypes);
+
+            _systemMetaDatas.Add(system, newSystemMeta);
         }
 
         public void RunAll()
@@ -35,9 +41,11 @@ namespace ReflectiveECS.Core.Managers
 
         private void Run(ISystem system)
         {
-            var executeMethod = _executeMethodsCache[system];
-            var parametersTypes = GetMethodParameterTypes(executeMethod).ToArray();
-            var matchedEntities = GetMatchingEntities(FilterOutEntity(parametersTypes).ToArray());
+            var metaData = _systemMetaDatas[system];
+
+            var executeMethod = metaData.ExecuteMethodInfo;
+            var parametersTypes = metaData.ParameterTypes;
+            var matchedEntities = GetMatchingEntities(metaData.ComponentParameterTypes);
 
             foreach (var entity in matchedEntities)
             {
