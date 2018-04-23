@@ -5,7 +5,7 @@
         [Execute]
         public void Execute(RotComp rotComp)
         {
-            
+            rotComp.Angle += 10;
         }
     }
 }
