@@ -28,13 +28,12 @@ namespace ReflectiveECS.Core.Managers
         private void Run(ISystem system)
         {
             var executeMethod = GetExecuteMethod(system);
-            var shouldGetEntityItself = GetShouldGetEntityItself(executeMethod);
-            var componentParameterTypes = GetTypesOfComponentParameters(executeMethod, shouldGetEntityItself);
-            var matchedEntities = GetMatchingEntities(componentParameterTypes);
+            var parametersTypes = GetMethodParameterTypes(executeMethod).ToArray();
+            var matchedEntities = GetMatchingEntities(FilterOutEntity(parametersTypes).ToArray());
 
             foreach (var entity in matchedEntities)
             {
-                var parameters = PrepareParameters(componentParameterTypes, entity, shouldGetEntityItself).ToArray();
+                var parameters = PrepareParameters(parametersTypes, entity).ToArray();
                 executeMethod.Invoke(system, parameters);
             }
         }
@@ -47,17 +46,14 @@ namespace ReflectiveECS.Core.Managers
                 .Single(m => m.GetCustomAttributes(typeof(ExecuteAttribute), false).Length > 0);
         }
 
-        private bool GetShouldGetEntityItself(MethodInfo executeMethod)
+        private IEnumerable<Type> GetMethodParameterTypes(MethodInfo executeMethod)
         {
-            var executeAttribute = (ExecuteAttribute) executeMethod.GetCustomAttribute(typeof(ExecuteAttribute));
-            return executeAttribute.GetEntityItself;
+            return executeMethod.GetParameters().Select(pi => pi.ParameterType);
         }
 
-        private Type[] GetTypesOfComponentParameters(MethodInfo executeMethod, bool skipFirstParameter)
+        private IEnumerable<Type> FilterOutEntity(IEnumerable<Type> types)
         {
-            var parameters = executeMethod.GetParameters();
-            return (skipFirstParameter ? parameters.Skip(1): parameters)
-                .Select(pi => pi.ParameterType).ToArray();
+            return types.Where(t => !t.IsAssignableFrom(typeof(Entity)));
         }
 
         private IEnumerable<Entity> GetMatchingEntities(Type[] componentTypes)
@@ -65,14 +61,18 @@ namespace ReflectiveECS.Core.Managers
             return _entitiesDatabase.GetMatchAll(componentTypes);
         }
 
-        private IEnumerable<object> PrepareParameters(Type[] componentTypes, Entity entity,
-            bool shouldGetEntityItself)
+        private IEnumerable<object> PrepareParameters(IEnumerable<Type> parameterTypes, Entity entity)
         {
-            if (shouldGetEntityItself) yield return entity;
-
-            foreach (var componentType in componentTypes)
+            foreach (var parameterType in parameterTypes)
             {
-                yield return entity.Get(componentType);
+                if (parameterType.IsAssignableFrom(typeof(Entity)))
+                {
+                    yield return entity;
+                }
+                else
+                {
+                    yield return entity.Get(parameterType);
+                }
             }
         }
     }
