@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using ReflectiveECS.Core.ECS;
 
-namespace ReflectiveECS
+namespace ReflectiveECS.Core.Managers
 {
     public class SystemsRunner
     {

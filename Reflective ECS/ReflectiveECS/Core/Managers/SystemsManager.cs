@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using ReflectiveECS.Core.ECS;
 
-namespace ReflectiveECS
+namespace ReflectiveECS.Core.Managers
 {
     public class SystemsManager
     {

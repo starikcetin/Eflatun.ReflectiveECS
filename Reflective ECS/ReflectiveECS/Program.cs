@@ -1,4 +1,6 @@
 ﻿using System;
+using ReflectiveECS.Core.ECS;
+using ReflectiveECS.Core.Managers;
 using ReflectiveECS.Development.ECS;
 
 namespace ReflectiveECS

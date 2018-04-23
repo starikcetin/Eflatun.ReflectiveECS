@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ReflectiveECS
+namespace ReflectiveECS.Core
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class ExecuteAttribute : Attribute

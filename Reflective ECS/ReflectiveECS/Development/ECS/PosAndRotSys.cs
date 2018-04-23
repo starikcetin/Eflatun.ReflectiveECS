@@ -1,4 +1,7 @@
-﻿namespace ReflectiveECS.Development.ECS
+﻿using ReflectiveECS.Core;
+using ReflectiveECS.Core.ECS;
+
+namespace ReflectiveECS.Development.ECS
 {
     public class PosAndRotSys : ISystem
     {

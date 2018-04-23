@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using ReflectiveECS.Core.ECS;
 
-namespace ReflectiveECS
+namespace ReflectiveECS.Core.Managers
 {
     public class EntitiesManager
     {

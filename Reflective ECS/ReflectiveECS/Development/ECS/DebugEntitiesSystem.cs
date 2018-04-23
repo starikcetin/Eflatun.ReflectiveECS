@@ -1,4 +1,6 @@
 ﻿using System;
+using ReflectiveECS.Core;
+using ReflectiveECS.Core.ECS;
 
 namespace ReflectiveECS.Development.ECS
 {

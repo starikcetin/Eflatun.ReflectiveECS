@@ -1,4 +1,6 @@
-﻿namespace ReflectiveECS.Development.ECS
+﻿using ReflectiveECS.Core.ECS;
+
+namespace ReflectiveECS.Development.ECS
 {
     public class PosComp : IComponent
     {
