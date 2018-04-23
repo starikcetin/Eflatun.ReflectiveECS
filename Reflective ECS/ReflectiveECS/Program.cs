@@ -1,4 +1,5 @@
-﻿using ReflectiveECS.Examples.ECS;
+﻿using System;
+using ReflectiveECS.Examples.ECS;
 
 namespace ReflectiveECS
 {
@@ -8,18 +9,16 @@ namespace ReflectiveECS
         {
             var systemsManager = new SystemsManager();
             var entitiesManager = new EntitiesManager();
-            var systemsRunner = new SystemsRunner(systemsManager);
+            var systemsRunner = new SystemsRunner(systemsManager, entitiesManager);
 
 
             //
             // Systems
             //
 
-            var posAndRotSystem = new PosAndRotSys();
-            var rotSystem = new RotSys();
-
-            systemsManager.Register(posAndRotSystem);
-            systemsManager.Register(rotSystem);
+            systemsManager.Register(new PosAndRotSys());
+            systemsManager.Register(new RotSys());
+            systemsManager.Register(new DebugEntitiesSystem());
 
 
             //
@@ -27,11 +26,11 @@ namespace ReflectiveECS
             //
 
             var posAndRotEntity = new Entity();
-            posAndRotEntity.Register(new PosComp());
-            posAndRotEntity.Register(new RotComp());
+            posAndRotEntity.Register(new PosComp { X = 10, Y = 20 });
+            posAndRotEntity.Register(new RotComp { Angle = 100 });
 
             var rotEntity = new Entity();
-            rotEntity.Register(new RotComp());
+            rotEntity.Register(new RotComp { Angle = 200 });
 
             entitiesManager.Register(posAndRotEntity);
             entitiesManager.Register(rotEntity);
@@ -41,10 +40,16 @@ namespace ReflectiveECS
             // Execution
             //
 
-            while (true)
-            {
-                systemsRunner.RunAll();
-            }
+            Console.WriteLine("======= RUN 0 ========");
+            systemsRunner.RunAll();
+            Console.WriteLine("======= RUN 1 ========");
+            systemsRunner.RunAll();
+            Console.WriteLine("======= RUN 2 ========");
+            systemsRunner.RunAll();
+            Console.WriteLine("======= RUN 3 ========");
+            systemsRunner.RunAll();
+
+            Console.ReadLine();
         }
     }
 }
