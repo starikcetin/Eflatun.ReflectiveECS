@@ -7,11 +7,15 @@ namespace ReflectiveECS
 {
     public class Entity
     {
+        private static int LAST_ID = -1;
+        public int ID { get; }
+
         private readonly List<IComponent> _components;
         public ReadOnlyCollection<IComponent> Components => _components.AsReadOnly();
 
         public Entity()
         {
+            ID = ++LAST_ID;
             _components = new List<IComponent>();
         }
 
