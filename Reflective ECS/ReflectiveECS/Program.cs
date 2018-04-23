@@ -9,9 +9,9 @@ namespace ReflectiveECS
     {
         public static void Main(string[] args)
         {
-            var systemsManager = new SystemsDatabase();
-            var entitiesManager = new EntitiesDatabase();
-            var systemsRunner = new SystemsRunner(systemsManager, entitiesManager);
+            var systemsDatabase = new SystemsDatabase();
+            var entitiesDatabase = new EntitiesDatabase();
+            var systemsRunner = new SystemsRunner(systemsDatabase, entitiesDatabase);
             var entityIdManager = new EntityIdManager();
 
 
@@ -19,9 +19,9 @@ namespace ReflectiveECS
             // Systems
             //
 
-            systemsManager.Register(new PosAndRotSys());
-            systemsManager.Register(new RotSys());
-            systemsManager.Register(new DebugEntitiesSystem());
+            systemsDatabase.Register(new PosAndRotSys());
+            systemsDatabase.Register(new RotSys());
+            systemsDatabase.Register(new DebugEntitiesSystem());
 
 
             //
@@ -35,8 +35,8 @@ namespace ReflectiveECS
             var rotEntity = new Entity(entityIdManager.GetUniqueId());
             rotEntity.Register(new RotComp { Angle = 200 });
 
-            entitiesManager.Register(posAndRotEntity);
-            entitiesManager.Register(rotEntity);
+            entitiesDatabase.Register(posAndRotEntity);
+            entitiesDatabase.Register(rotEntity);
 
 
             //
