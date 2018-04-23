@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace ReflectiveECS
@@ -7,6 +8,7 @@ namespace ReflectiveECS
     public class Entity
     {
         private readonly List<IComponent> _components;
+        public ReadOnlyCollection<IComponent> Components => _components.AsReadOnly();
 
         public Entity()
         {
