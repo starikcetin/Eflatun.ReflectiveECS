@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ReflectiveECS.Examples.ECS
+namespace ReflectiveECS.Development.ECS
 {
     public class DebugEntitiesSystem : ISystem
     {

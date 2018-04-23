@@ -1,5 +1,5 @@
 ﻿using System;
-using ReflectiveECS.Examples.ECS;
+using ReflectiveECS.Development.ECS;
 
 namespace ReflectiveECS
 {
