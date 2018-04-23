@@ -7,18 +7,18 @@ namespace ReflectiveECS.Core.Managers
 {
     public class SystemsRunner
     {
-        private readonly SystemsManager _systemsManager;
-        private readonly EntitiesManager _entitiesManager;
+        private readonly SystemsDatabase _systemsDatabase;
+        private readonly EntitiesDatabase _entitiesDatabase;
 
-        public SystemsRunner(SystemsManager systemsManager, EntitiesManager entitiesManager)
+        public SystemsRunner(SystemsDatabase systemsDatabase, EntitiesDatabase entitiesDatabase)
         {
-            _systemsManager = systemsManager;
-            _entitiesManager = entitiesManager;
+            _systemsDatabase = systemsDatabase;
+            _entitiesDatabase = entitiesDatabase;
         }
 
         public void RunAll()
         {
-            foreach (var system in _systemsManager.RegisteredSystems)
+            foreach (var system in _systemsDatabase.RegisteredSystems)
             {
                 Run(system);
             }
@@ -42,7 +42,7 @@ namespace ReflectiveECS.Core.Managers
                 .Select(pi => pi.ParameterType).ToArray();
 
             // match parameter components
-            var matchedEntities = _entitiesManager.GetMatchAll(parameterTypes);
+            var matchedEntities = _entitiesDatabase.GetMatchAll(parameterTypes);
 
             // execute for all matches
             foreach (var entity in matchedEntities)

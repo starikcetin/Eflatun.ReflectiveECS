@@ -4,11 +4,11 @@ using ReflectiveECS.Core.ECS;
 
 namespace ReflectiveECS.Core.Managers
 {
-    public class EntitiesManager
+    public class EntitiesDatabase
     {
         private readonly List<Entity> _entities;
 
-        public EntitiesManager()
+        public EntitiesDatabase()
         {
             _entities = new List<Entity>();
         }

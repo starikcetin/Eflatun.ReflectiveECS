@@ -4,12 +4,12 @@ using ReflectiveECS.Core.ECS;
 
 namespace ReflectiveECS.Core.Managers
 {
-    public class SystemsManager
+    public class SystemsDatabase
     {
         private readonly List<ISystem> _registeredSystems;
         public ReadOnlyCollection<ISystem> RegisteredSystems => _registeredSystems.AsReadOnly();
 
-        public SystemsManager()
+        public SystemsDatabase()
         {
             _registeredSystems = new List<ISystem>();
         }

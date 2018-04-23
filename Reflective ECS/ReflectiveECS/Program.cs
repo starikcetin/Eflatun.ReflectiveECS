@@ -9,8 +9,8 @@ namespace ReflectiveECS
     {
         public static void Main(string[] args)
         {
-            var systemsManager = new SystemsManager();
-            var entitiesManager = new EntitiesManager();
+            var systemsManager = new SystemsDatabase();
+            var entitiesManager = new EntitiesDatabase();
             var systemsRunner = new SystemsRunner(systemsManager, entitiesManager);
 
 
