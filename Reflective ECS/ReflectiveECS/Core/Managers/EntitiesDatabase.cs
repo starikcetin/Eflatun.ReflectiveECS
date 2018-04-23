@@ -6,12 +6,7 @@ namespace ReflectiveECS.Core.Managers
 {
     public class EntitiesDatabase
     {
-        private readonly List<Entity> _entities;
-
-        public EntitiesDatabase()
-        {
-            _entities = new List<Entity>();
-        }
+        private readonly List<Entity> _entities = new List<Entity>();
 
         public void Register(Entity entity)
         {
