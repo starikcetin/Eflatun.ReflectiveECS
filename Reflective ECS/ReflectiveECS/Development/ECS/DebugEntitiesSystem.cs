@@ -9,7 +9,7 @@ namespace ReflectiveECS.Development.ECS
         [Execute(getEntityItself: true)]
         public void Execute(Entity entity)
         {
-            Console.WriteLine($"entity {entity.ID}");
+            Console.WriteLine($"entity {entity.Id}");
             foreach (var component in entity.Components)
             {
                 Console.WriteLine("\t" + component.GetType().Name);
