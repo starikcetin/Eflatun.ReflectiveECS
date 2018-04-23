@@ -2,6 +2,7 @@
 {
     public class RotSys : ISystem
     {
+        [Execute]
         public void Execute(RotComp rotComp)
         {
             
