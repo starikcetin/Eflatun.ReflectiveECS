@@ -11,10 +11,18 @@ namespace ReflectiveECS.Core.Managers
         private readonly SystemsDatabase _systemsDatabase;
         private readonly EntitiesDatabase _entitiesDatabase;
 
+        private readonly Dictionary<ISystem, MethodInfo> _executeMethodsCache = new Dictionary<ISystem, MethodInfo>();
+
         public SystemsRunner(SystemsDatabase systemsDatabase, EntitiesDatabase entitiesDatabase)
         {
             _systemsDatabase = systemsDatabase;
             _entitiesDatabase = entitiesDatabase;
+        }
+
+        public void Cache(ISystem system)
+        {
+            var executeMethodInfo = GetExecuteMethod(system);
+            _executeMethodsCache.Add(system, executeMethodInfo);
         }
 
         public void RunAll()
@@ -27,7 +35,7 @@ namespace ReflectiveECS.Core.Managers
 
         private void Run(ISystem system)
         {
-            var executeMethod = GetExecuteMethod(system);
+            var executeMethod = _executeMethodsCache[system];
             var parametersTypes = GetMethodParameterTypes(executeMethod).ToArray();
             var matchedEntities = GetMatchingEntities(FilterOutEntity(parametersTypes).ToArray());
 

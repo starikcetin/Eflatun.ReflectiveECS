@@ -20,18 +20,51 @@ namespace Development
             //
             // Systems
             //
+            var pars0 = new PosAndRotSys();
+            var pars1 = new PosAndRotSys();
+            var pars2 = new PosAndRotSys();
+            var pars3 = new PosAndRotSys();
+            var pars4 = new PosAndRotSys();
 
-            systemsDatabase.Register(new PosAndRotSys());
-            systemsDatabase.Register(new RotSys());
-            systemsDatabase.Register(new PosAndRotSys());
-            systemsDatabase.Register(new RotSys());
-            systemsDatabase.Register(new PosAndRotSys());
-            systemsDatabase.Register(new RotSys());
-            systemsDatabase.Register(new PosAndRotSys());
-            systemsDatabase.Register(new RotSys());
-            systemsDatabase.Register(new PosAndRotSys());
-            systemsDatabase.Register(new RotSys());
-            //systemsDatabase.Register(new DebugEntitiesSystem());
+            var rs0 = new RotSys();
+            var rs1 = new RotSys();
+            var rs2 = new RotSys();
+            var rs3 = new RotSys();
+            var rs4 = new RotSys();
+
+            systemsDatabase.Register(pars0);
+            systemsRunner.Cache(pars0);
+
+            systemsDatabase.Register(pars1);
+            systemsRunner.Cache(pars1);
+
+            systemsDatabase.Register(pars2);
+            systemsRunner.Cache(pars2);
+
+            systemsDatabase.Register(pars3);
+            systemsRunner.Cache(pars3);
+
+            systemsDatabase.Register(pars4);
+            systemsRunner.Cache(pars4);
+
+            systemsDatabase.Register(rs0);
+            systemsRunner.Cache(rs0);
+
+            systemsDatabase.Register(rs1);
+            systemsRunner.Cache(rs1);
+
+            systemsDatabase.Register(rs2);
+            systemsRunner.Cache(rs2);
+
+            systemsDatabase.Register(rs3);
+            systemsRunner.Cache(rs3);
+
+            systemsDatabase.Register(rs4);
+            systemsRunner.Cache(rs4);
+
+            //var des = new DebugEntitiesSystem();
+            //systemsDatabase.Register(des);
+            //systemsRunner.Cache(des);
 
 
             //
