@@ -4,7 +4,12 @@ namespace ReflectiveECS
 {
     public class EntitiesManager
     {
-        private List<Entity> _entities;
+        private readonly List<Entity> _entities;
+
+        public EntitiesManager()
+        {
+            _entities = new List<Entity>();
+        }
 
         public void Register(Entity entity)
         {

@@ -4,7 +4,12 @@ namespace ReflectiveECS
 {
     public class Entity
     {
-        private List<IComponent> _components;
+        private readonly List<IComponent> _components;
+
+        public Entity()
+        {
+            _components = new List<IComponent>();
+        }
 
         public void Register(IComponent component)
         {
