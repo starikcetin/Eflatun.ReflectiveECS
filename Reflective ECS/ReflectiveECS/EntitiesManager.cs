@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ReflectiveECS
 {
@@ -19,6 +20,17 @@ namespace ReflectiveECS
         public void Unregister(Entity entity)
         {
             _entities.Remove(entity);
+        }
+
+        public IEnumerable<Entity> GetMatchAll(params Type[] componentTypes)
+        {
+            foreach (var entity in _entities)
+            {
+                if (entity.HasAll(componentTypes))
+                {
+                    yield return entity;
+                }
+            }
         }
     }
 }
