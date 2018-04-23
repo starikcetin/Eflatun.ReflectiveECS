@@ -1,9 +1,9 @@
 ﻿using System;
+using Development.ECS;
 using ReflectiveECS.Core.ECS;
 using ReflectiveECS.Core.Managers;
-using ReflectiveECS.Development.ECS;
 
-namespace ReflectiveECS
+namespace Development
 {
     internal class Program
     {

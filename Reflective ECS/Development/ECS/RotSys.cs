@@ -1,7 +1,7 @@
 ﻿using ReflectiveECS.Core;
 using ReflectiveECS.Core.ECS;
 
-namespace ReflectiveECS.Development.ECS
+namespace Development.ECS
 {
     public class RotSys : ISystem
     {
