@@ -47,10 +47,12 @@ namespace ReflectiveECS.Core.Managers
             var parametersTypes = metaData.ParameterTypes;
             var matchedEntities = GetMatchingEntities(metaData.ComponentParameterTypes);
 
+            var parameterArray = new object[parametersTypes.Length];
+
             foreach (var entity in matchedEntities)
             {
-                var parameters = PrepareParameters(parametersTypes, entity).ToArray();
-                executeMethod.Invoke(system, parameters);
+                PrepareParameters(ref parameterArray, parametersTypes, entity);
+                executeMethod.Invoke(system, parameterArray);
             }
         }
 
@@ -77,17 +79,19 @@ namespace ReflectiveECS.Core.Managers
             return _entitiesDatabase.GetMatchAll(componentTypes);
         }
 
-        private IEnumerable<object> PrepareParameters(IEnumerable<Type> parameterTypes, Entity entity)
+        private void PrepareParameters(ref object[] fillArray, Type[] parameterTypes, Entity entity)
         {
-            foreach (var parameterType in parameterTypes)
+            for (var i = 0; i < fillArray.Length; i++)
             {
+                var parameterType = parameterTypes[i];
+
                 if (parameterType.IsAssignableFrom(typeof(Entity)))
                 {
-                    yield return entity;
+                    fillArray[i] = entity;
                 }
                 else
                 {
-                    yield return entity.Get(parameterType);
+                    fillArray[i] = entity.Get(parameterType);
                 }
             }
         }
