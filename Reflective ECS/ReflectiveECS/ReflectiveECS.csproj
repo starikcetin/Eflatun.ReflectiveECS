@@ -43,6 +43,7 @@
     <Compile Include="Core\ECS\ISystem.cs" />
     <Compile Include="Core\ExecuteAttribute.cs" />
     <Compile Include="Core\Managers\EntitiesDatabase.cs" />
+    <Compile Include="Core\Managers\EntityIdManager.cs" />
     <Compile Include="Core\Managers\SystemsDatabase.cs" />
     <Compile Include="Core\Managers\SystemsRunner.cs" />
     <Compile Include="Development\ECS\DebugEntitiesSystem.cs" />
