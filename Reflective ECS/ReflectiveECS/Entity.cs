@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ReflectiveECS
 {
@@ -19,6 +21,31 @@ namespace ReflectiveECS
         public void Deregister(IComponent component)
         {
             _components.Remove(component);
+        }
+
+        public T Get<T>() where T : IComponent
+        {
+            return _components.OfType<T>().Single();
+        }
+
+        public IComponent Get(Type type)
+        {
+            return _components.Single(c => c.GetType() == type);
+        }
+
+        public bool Has<T>() where T : IComponent
+        {
+            return _components.OfType<T>().Any();
+        }
+
+        public bool Has(Type type)
+        {
+            return _components.Exists(c => c.GetType() == type);
+        }
+
+        public bool HasAll(IEnumerable<Type> types)
+        {
+            return types.All(Has);
         }
     }
 }
