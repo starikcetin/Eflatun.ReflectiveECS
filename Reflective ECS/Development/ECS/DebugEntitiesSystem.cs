@@ -6,7 +6,7 @@ namespace Development.ECS
 {
     public class DebugEntitiesSystem : ISystem
     {
-        [Execute(getEntityItself: true)]
+        [Execute]
         public void Execute(Entity entity)
         {
             Console.WriteLine($"entity {entity.Id}");
