@@ -38,14 +38,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Examples\ECS\PosAndRotSys.cs" />
-    <Compile Include="Examples\ECS\PosComp.cs" />
-    <Compile Include="Examples\ECS\RotComp.cs" />
-    <Compile Include="Examples\ECS\RotSys.cs" />
-    <Compile Include="Examples\Generated\SystemsMatchAndExecuteMethods.cs" />
+    <Compile Include="Core\ECS\Entity.cs" />
+    <Compile Include="Core\ECS\IComponent.cs" />
+    <Compile Include="Core\ECS\ISystem.cs" />
+    <Compile Include="Core\ExecuteAttribute.cs" />
+    <Compile Include="Core\Managers\EntitiesDatabase.cs" />
+    <Compile Include="Core\Managers\EntityIdManager.cs" />
+    <Compile Include="Core\Managers\SystemsDatabase.cs" />
+    <Compile Include="Core\Managers\SystemsRunner.cs" />
+    <Compile Include="Development\ECS\DebugEntitiesSystem.cs" />
+    <Compile Include="Development\ECS\PosAndRotSys.cs" />
+    <Compile Include="Development\ECS\PosComp.cs" />
+    <Compile Include="Development\ECS\RotComp.cs" />
+    <Compile Include="Development\ECS\RotSys.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SystemsExecuter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
