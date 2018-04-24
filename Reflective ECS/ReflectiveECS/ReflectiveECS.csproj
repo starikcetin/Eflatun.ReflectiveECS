@@ -45,6 +45,7 @@
     <Compile Include="Core\ExecuteAttribute.cs" />
     <Compile Include="Core\Managers\Caching\SystemMetaData.cs" />
     <Compile Include="Core\Managers\EntitiesDatabase.cs" />
+    <Compile Include="Core\Managers\EntityGrouper.cs" />
     <Compile Include="Core\Managers\EntityIdManager.cs" />
     <Compile Include="Core\Managers\SystemsDatabase.cs" />
     <Compile Include="Core\Managers\SystemsRunner.cs" />
