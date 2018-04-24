@@ -16,6 +16,9 @@ namespace Development
                 );
 
             performanceTesting.Run();
+
+            var correctnessTester = new CorrectnessTester();
+            correctnessTester.Run();
         }
     }
 }
