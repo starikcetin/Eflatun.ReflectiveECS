@@ -30,5 +30,18 @@ namespace ReflectiveECS.Core.Managers
                 }
             }
         }
+
+        public void FillMatchAll(ref List<Entity> fillList, params Type[] componentTypes)
+        {
+            for (var i = 0; i < _entities.Count; i++)
+            {
+                var entity = _entities[i];
+
+                if (entity.HasAll(componentTypes))
+                {
+                    fillList.Add(entity);
+                }
+            }
+        }
     }
 }

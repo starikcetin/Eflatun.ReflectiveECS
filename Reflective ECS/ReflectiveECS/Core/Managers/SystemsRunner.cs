@@ -15,6 +15,8 @@ namespace ReflectiveECS.Core.Managers
 
         private readonly Dictionary<ISystem, SystemMetaData> _systemMetaDatas = new Dictionary<ISystem, SystemMetaData>();
 
+        private List<Entity> _macthFillList = new List<Entity>();
+
         public SystemsRunner(SystemsDatabase systemsDatabase, EntitiesDatabase entitiesDatabase)
         {
             _systemsDatabase = systemsDatabase;
@@ -47,13 +49,13 @@ namespace ReflectiveECS.Core.Managers
 
             var fastInvokeHandler = metaData.FastInvokeHandler;
             var parametersTypes = metaData.ParameterTypes;
-            var matchedEntities = GetMatchingEntities(metaData.ComponentParameterTypes);
+            FillMatchingEntities(metaData.ComponentParameterTypes);
 
             var parameterArray = new object[parametersTypes.Length];
 
-            foreach (var entity in matchedEntities)
+            for (var i = 0; i < _macthFillList.Count; i++)
             {
-                PrepareParameters(ref parameterArray, parametersTypes, entity);
+                PrepareParameters(ref parameterArray, parametersTypes, _macthFillList[i]);
                 fastInvokeHandler.Invoke(system, parameterArray);
             }
         }
@@ -76,9 +78,10 @@ namespace ReflectiveECS.Core.Managers
             return types.Where(t => !t.IsAssignableFrom(typeof(Entity)));
         }
 
-        private IEnumerable<Entity> GetMatchingEntities(Type[] componentTypes)
+        private void FillMatchingEntities(Type[] componentTypes)
         {
-            return _entitiesDatabase.GetMatchAll(componentTypes);
+            _macthFillList.Clear();
+            _entitiesDatabase.FillMatchAll(ref _macthFillList, componentTypes);
         }
 
         private void PrepareParameters(ref object[] fillArray, Type[] parameterTypes, Entity entity)
