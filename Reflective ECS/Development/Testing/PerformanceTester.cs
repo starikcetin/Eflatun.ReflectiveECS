@@ -91,6 +91,7 @@ namespace Development.Testing
                 for (var j = 0; j < _componentPerEntity; j++)
                 {
                     entity.Register(new PosComp {X = 10, Y = 20});
+                    entity.Register(new RotComp());
                 }
 
                 _entitiesDatabase.Register(entity);
