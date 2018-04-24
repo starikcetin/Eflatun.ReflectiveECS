@@ -7,9 +7,9 @@ namespace Development
         public static void Main(string[] args)
         {
             var performanceTesting = new PerformanceTester(
-                frameCount: 50,
+                frameCount: 20,
                 systemCount: 50,
-                entityCount: 10_000,
+                entityCount: 100_000,
                 componentPerEntity: 10,
                 clearConsoleBeforeFinal: true,
                 beepOnEnd: true
