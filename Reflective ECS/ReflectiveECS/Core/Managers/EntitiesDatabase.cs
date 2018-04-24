@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using ReflectiveECS.Core.ECS;
 
 namespace ReflectiveECS.Core.Managers
@@ -7,6 +8,7 @@ namespace ReflectiveECS.Core.Managers
     public class EntitiesDatabase
     {
         private readonly List<Entity> _entities = new List<Entity>();
+        public ReadOnlyCollection<Entity> Entities => _entities.AsReadOnly();
 
         public void Register(Entity entity)
         {
