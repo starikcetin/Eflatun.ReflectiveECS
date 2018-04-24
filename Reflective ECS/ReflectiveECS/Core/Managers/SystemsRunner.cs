@@ -24,7 +24,7 @@ namespace ReflectiveECS.Core.Managers
         public void Cache(ISystem system)
         {
             var executeMethodInfo = GetExecuteMethod(system);
-            var fastInvokeHandler = FastInvoker.GetMethodInvoker(executeMethodInfo);
+            var fastInvokeHandler = FastInvokerGenerator.GenerateFastInvoker(executeMethodInfo);
             var parameterTypes = GetMethodParameterTypes(executeMethodInfo).ToArray();
             var componentParameterTypes = FilterOutEntity(parameterTypes).ToArray();
 

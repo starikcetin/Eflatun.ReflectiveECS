@@ -4,14 +4,9 @@ using System.Reflection.Emit;
 
 namespace ReflectiveECS.Optimization.FastInvoke
 {
-    public class FastInvoker
+    public static class FastInvokerGenerator
     {
-        private static object InvokeMethod(FastInvokeHandler invoke, object target, params object[] paramters)
-        {
-            return invoke(null, paramters);
-        }
-
-        public static FastInvokeHandler GetMethodInvoker(MethodInfo methodInfo)
+        public static FastInvokeHandler GenerateFastInvoker(MethodInfo methodInfo)
         {
             var dynamicMethod = new DynamicMethod(string.Empty, typeof(object),
                 new Type[] {typeof(object), typeof(object[])}, methodInfo.DeclaringType.Module);
