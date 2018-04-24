@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ReflectiveECS.Core.ECS;
+using ReflectiveECS.Core.Managers.Caching;
+using ReflectiveECS.Optimization.FastInvoke;
 
 namespace ReflectiveECS.Core.Managers
 {
@@ -11,10 +13,26 @@ namespace ReflectiveECS.Core.Managers
         private readonly SystemsDatabase _systemsDatabase;
         private readonly EntitiesDatabase _entitiesDatabase;
 
+        private readonly Dictionary<ISystem, SystemMetaData> _systemMetaDatas = new Dictionary<ISystem, SystemMetaData>();
+
+        private List<Entity> _macthFillList = new List<Entity>();
+
         public SystemsRunner(SystemsDatabase systemsDatabase, EntitiesDatabase entitiesDatabase)
         {
             _systemsDatabase = systemsDatabase;
             _entitiesDatabase = entitiesDatabase;
+        }
+
+        public void Cache(ISystem system)
+        {
+            var executeMethodInfo = GetExecuteMethod(system);
+            var fastInvokeHandler = FastInvokerGenerator.GenerateFastInvoker(executeMethodInfo);
+            var parameterTypes = GetMethodParameterTypes(executeMethodInfo).ToArray();
+            var componentParameterTypes = FilterOutEntity(parameterTypes).ToArray();
+
+            var newSystemMeta = new SystemMetaData(fastInvokeHandler, parameterTypes, componentParameterTypes);
+
+            _systemMetaDatas.Add(system, newSystemMeta);
         }
 
         public void RunAll()
@@ -27,14 +45,18 @@ namespace ReflectiveECS.Core.Managers
 
         private void Run(ISystem system)
         {
-            var executeMethod = GetExecuteMethod(system);
-            var parametersTypes = GetMethodParameterTypes(executeMethod).ToArray();
-            var matchedEntities = GetMatchingEntities(FilterOutEntity(parametersTypes).ToArray());
+            var metaData = _systemMetaDatas[system];
 
-            foreach (var entity in matchedEntities)
+            var fastInvokeHandler = metaData.FastInvokeHandler;
+            var parametersTypes = metaData.ParameterTypes;
+            FillMatchingEntities(metaData.ComponentParameterTypes);
+
+            var parameterArray = new object[parametersTypes.Length];
+
+            for (var i = 0; i < _macthFillList.Count; i++)
             {
-                var parameters = PrepareParameters(parametersTypes, entity).ToArray();
-                executeMethod.Invoke(system, parameters);
+                PrepareParameters(ref parameterArray, parametersTypes, _macthFillList[i]);
+                fastInvokeHandler.Invoke(system, parameterArray);
             }
         }
 
@@ -56,22 +78,25 @@ namespace ReflectiveECS.Core.Managers
             return types.Where(t => !t.IsAssignableFrom(typeof(Entity)));
         }
 
-        private IEnumerable<Entity> GetMatchingEntities(Type[] componentTypes)
+        private void FillMatchingEntities(Type[] componentTypes)
         {
-            return _entitiesDatabase.GetMatchAll(componentTypes);
+            _macthFillList.Clear();
+            _entitiesDatabase.FillMatchAll(ref _macthFillList, componentTypes);
         }
 
-        private IEnumerable<object> PrepareParameters(IEnumerable<Type> parameterTypes, Entity entity)
+        private void PrepareParameters(ref object[] fillArray, Type[] parameterTypes, Entity entity)
         {
-            foreach (var parameterType in parameterTypes)
+            for (var i = 0; i < fillArray.Length; i++)
             {
+                var parameterType = parameterTypes[i];
+
                 if (parameterType.IsAssignableFrom(typeof(Entity)))
                 {
-                    yield return entity;
+                    fillArray[i] = entity;
                 }
                 else
                 {
-                    yield return entity.Get(parameterType);
+                    fillArray[i] = entity.Get(parameterType);
                 }
             }
         }
