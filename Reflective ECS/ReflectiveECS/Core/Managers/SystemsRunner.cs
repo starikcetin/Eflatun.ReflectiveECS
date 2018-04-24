@@ -12,15 +12,17 @@ namespace ReflectiveECS.Core.Managers
     {
         private readonly SystemsDatabase _systemsDatabase;
         private readonly EntitiesDatabase _entitiesDatabase;
+        private readonly EntityGrouper _entityGrouper;
 
         private readonly Dictionary<ISystem, SystemMetaData> _systemMetaDatas = new Dictionary<ISystem, SystemMetaData>();
 
         private List<Entity> _macthFillList = new List<Entity>();
 
-        public SystemsRunner(SystemsDatabase systemsDatabase, EntitiesDatabase entitiesDatabase)
+        public SystemsRunner(SystemsDatabase systemsDatabase, EntitiesDatabase entitiesDatabase, EntityGrouper entityGrouper)
         {
             _systemsDatabase = systemsDatabase;
             _entitiesDatabase = entitiesDatabase;
+            _entityGrouper = entityGrouper;
         }
 
         public void Cache(ISystem system)
@@ -81,7 +83,7 @@ namespace ReflectiveECS.Core.Managers
         private void FillMatchingEntities(Type[] componentTypes)
         {
             _macthFillList.Clear();
-            _entitiesDatabase.FillMatchAll(ref _macthFillList, componentTypes);
+            _macthFillList = _entityGrouper.GetGroupIntersect(componentTypes).ToList();
         }
 
         private void PrepareParameters(ref object[] fillArray, Type[] parameterTypes, Entity entity)

@@ -19,6 +19,7 @@ namespace Development.Testing
         private readonly EntitiesDatabase _entitiesDatabase;
         private readonly SystemsRunner _systemsRunner;
         private readonly EntityIdManager _entityIdManager;
+        private readonly EntityGrouper _entityGrouper;
 
         public PerformanceTester(int frameCount, int systemCount, int entityCount, int componentPerEntity, bool clearConsoleBeforeFinal, bool beepOnEnd)
         {
@@ -30,7 +31,8 @@ namespace Development.Testing
             _frameCount = frameCount;
             _systemsDatabase = new SystemsDatabase();
             _entitiesDatabase = new EntitiesDatabase();
-            _systemsRunner = new SystemsRunner(_systemsDatabase, _entitiesDatabase);
+            _entityGrouper = new EntityGrouper();
+            _systemsRunner = new SystemsRunner(_systemsDatabase, _entitiesDatabase, _entityGrouper);
             _entityIdManager = new EntityIdManager();
         }
 
@@ -91,7 +93,9 @@ namespace Development.Testing
                 for (var j = 0; j < _componentPerEntity; j++)
                 {
                     entity.Register(new PosComp {X = 10, Y = 20});
+                    _entityGrouper.Register(entity, typeof(PosComp));
                     entity.Register(new RotComp());
+                    _entityGrouper.Register(entity, typeof(RotComp));
                 }
 
                 _entitiesDatabase.Register(entity);
