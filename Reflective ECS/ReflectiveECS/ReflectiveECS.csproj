@@ -48,6 +48,8 @@
     <Compile Include="Core\Managers\EntityIdManager.cs" />
     <Compile Include="Core\Managers\SystemsDatabase.cs" />
     <Compile Include="Core\Managers\SystemsRunner.cs" />
+    <Compile Include="Optimization\FastInvoke\FastInvokeHandler.cs" />
+    <Compile Include="Optimization\FastInvoke\FastInvoker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

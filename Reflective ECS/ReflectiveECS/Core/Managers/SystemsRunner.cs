@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using ReflectiveECS.Core.ECS;
 using ReflectiveECS.Core.Managers.Caching;
+using ReflectiveECS.Optimization.FastInvoke;
 
 namespace ReflectiveECS.Core.Managers
 {
@@ -23,10 +24,11 @@ namespace ReflectiveECS.Core.Managers
         public void Cache(ISystem system)
         {
             var executeMethodInfo = GetExecuteMethod(system);
+            var fastInvokeHandler = FastInvoker.GetMethodInvoker(executeMethodInfo);
             var parameterTypes = GetMethodParameterTypes(executeMethodInfo).ToArray();
             var componentParameterTypes = FilterOutEntity(parameterTypes).ToArray();
 
-            var newSystemMeta = new SystemMetaData(executeMethodInfo, parameterTypes, componentParameterTypes);
+            var newSystemMeta = new SystemMetaData(fastInvokeHandler, parameterTypes, componentParameterTypes);
 
             _systemMetaDatas.Add(system, newSystemMeta);
         }
@@ -43,7 +45,7 @@ namespace ReflectiveECS.Core.Managers
         {
             var metaData = _systemMetaDatas[system];
 
-            var executeMethod = metaData.ExecuteMethodInfo;
+            var fastInvokeHandler = metaData.FastInvokeHandler;
             var parametersTypes = metaData.ParameterTypes;
             var matchedEntities = GetMatchingEntities(metaData.ComponentParameterTypes);
 
@@ -52,7 +54,7 @@ namespace ReflectiveECS.Core.Managers
             foreach (var entity in matchedEntities)
             {
                 PrepareParameters(ref parameterArray, parametersTypes, entity);
-                executeMethod.Invoke(system, parameterArray);
+                fastInvokeHandler.Invoke(system, parameterArray);
             }
         }
 

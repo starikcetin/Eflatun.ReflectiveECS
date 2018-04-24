@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Reflection;
+using ReflectiveECS.Optimization.FastInvoke;
 
 namespace ReflectiveECS.Core.Managers.Caching
 {
     internal class SystemMetaData
     {
-        public readonly MethodInfo ExecuteMethodInfo;
+        public readonly FastInvokeHandler FastInvokeHandler;
         public readonly Type[] ParameterTypes;
         public readonly Type[] ComponentParameterTypes;
 
-        public SystemMetaData(MethodInfo executeMethodInfo, Type[] parameterTypes, Type[] componentParameterTypes)
+        public SystemMetaData(FastInvokeHandler fastInvokeHandler, Type[] parameterTypes, Type[] componentParameterTypes)
         {
-            ExecuteMethodInfo = executeMethodInfo;
+            FastInvokeHandler = fastInvokeHandler;
             ParameterTypes = parameterTypes;
             ComponentParameterTypes = componentParameterTypes;
         }
