@@ -52,9 +52,17 @@ namespace ReflectiveECS.Core.ECS
             return _componentTypes.Contains(type);
         }
 
-        public bool HasAll(IEnumerable<Type> types)
+        public bool HasAll(params Type[] types)
         {
-            return types.All(Has);
+            for (var i = 0; i < types.Length; i++)
+            {
+                if (!Has(types[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         [ContractInvariantMethod]
