@@ -1,9 +1,59 @@
-# Reflective-ECS
+# Reflective ECS
 A proof of concept for a reflection-based ECS system for C#.
 
-This project is not complete and by no means production-ready. Use it at your own risk.
+**This project is not complete and by no means production-ready. Use it at your own risk.**
+
+# Summary
+Systems in an ECS architecture usually fetch and filter entities/components on their own. I wanted to reverse this responsibility and design a centralized invoker that is responsible for invoking systems with the component types they want. When implemented naively, this causes double declaration of dependencies of a system, one time for the Filter object and a second time for the parameters of the execute method.
+
+To eliminate this double-declaration and still keep the filtering responsibility away from systems, I decided to eliminate the filterer object and instead fetch the filter information from the parameters of the executer method of the System. This resulted in a syntax like this:
+
+```cs
+public class ExampleSystem : ISystem
+{
+    [Execute]
+    public void ExecuteMethod(ComponentFoo foo, ComponentBar bar, ComponentBaz baz)
+    {
+        // system logic
+    }
+}
+```
+
+This single method marked with `[Execute]` is all it takes to declare a system with the component dependencies.
+
+Optionally, an Execute method may take the entity itself as the first parameter (and first parameter only):
+
+```cs
+public class ExampleSystem : ISystem
+{
+    [Execute]
+    public void ExecuteMethod(Entity entity, ComponentFoo foo, ComponentBar bar, ComponentBaz baz)
+    {
+        // system logic
+    }
+}
+```
+
+Or you can eliminate all component dependencies and write a system that runs for all existing entities, as follows:
+
+```cs
+public class ExampleSystem : ISystem
+{
+    [Execute]
+    public void ExecuteMethod(Entity entity)
+    {
+        // system logic
+    }
+}
+```
+
+# How
+Reflection! The `SystemsRunner` class uses reflection to fetch the component list of the method marked with `Execute` attribute in a system, extracts the types of these parameters and caches this information along with a delegate to invoke the `Execute` method of the said system. Afterwards, it uses this information to filter the entities that has all of the requested components and invokes the method with each of these matching entities.
 
 # Performance
+
+(comma is the fraction seperator and dot is the thousands seperator)
+
 Stress testing
 ```
 Frame #0 - 4263352 ticks
