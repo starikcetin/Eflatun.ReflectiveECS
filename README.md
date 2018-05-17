@@ -1,4 +1,4 @@
-# Reflective ECS
+# Eflatun.ReflectiveECS
 A proof of concept for a reflection-based ECS system for C#.
 
 **This project is not complete and by no means production-ready. Use it at your own risk.**
@@ -125,9 +125,9 @@ Frames       20
 ------------
 ```
 
-# Licence
-MIT license. Refer to the [LICENCE](https://github.com/starikcetin/Reflective-ECS/blob/master/LICENSE) file.
+# License
+MIT license. Refer to the [LICENSE](https://github.com/starikcetin/Eflatun.ReflectiveECS/blob/master/LICENSE) file.
 
-This project includes third party code which are not explicitly licenced. Refer to the [LICENCE NOTICE](https://github.com/starikcetin/Reflective-ECS/blob/master/Reflective%20ECS/ReflectiveECS/Optimization/FastInvoke/LICENCE%20NOTICE) file.
+This project includes third party code which are not explicitly licensed. Refer to the [LICENSE NOTICE](https://github.com/starikcetin/Eflatun.ReflectiveECS/blob/master/Reflective%20ECS/ReflectiveECS/Optimization/FastInvoke/LICENSE%20NOTICE) file.
 
 Copyright (c) 2018 S. Tarık Çetin
