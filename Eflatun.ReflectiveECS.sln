@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReflectiveECS", "ReflectiveECS\ReflectiveECS.csproj", "{CC7D8730-70CE-47F7-839E-357DD4E2F35F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eflatun.ReflectiveECS.Core", "Eflatun.ReflectiveECS.Core\Eflatun.ReflectiveECS.Core.csproj", "{CC7D8730-70CE-47F7-839E-357DD4E2F35F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Development", "Development\Development.csproj", "{1D85937A-C4B3-4A08-B271-824AFD2D6DCC}"
 EndProject
