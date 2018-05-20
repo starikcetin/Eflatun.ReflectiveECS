@@ -50,9 +50,9 @@
     <Compile Include="Testing\PerformanceTester.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ReflectiveECS\ReflectiveECS.csproj">
-      <Project>{CC7D8730-70CE-47F7-839E-357DD4E2F35F}</Project>
-      <Name>ReflectiveECS</Name>
+    <ProjectReference Include="..\Eflatun.ReflectiveECS.Core\Eflatun.ReflectiveECS.Core.csproj">
+      <Project>{cc7d8730-70ce-47f7-839e-357dd4e2f35f}</Project>
+      <Name>Eflatun.ReflectiveECS.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
