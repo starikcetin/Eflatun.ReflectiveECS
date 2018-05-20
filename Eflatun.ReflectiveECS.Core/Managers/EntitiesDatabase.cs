@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Eflatun.ReflectiveECS.Core.Core.ECS;
+using Eflatun.ReflectiveECS.Core.ECS;
 
-namespace Eflatun.ReflectiveECS.Core.Core.Managers
+namespace Eflatun.ReflectiveECS.Core.Managers
 {
     public class EntitiesDatabase
     {

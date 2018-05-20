@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 
-namespace Eflatun.ReflectiveECS.Core.Core.ECS
+namespace Eflatun.ReflectiveECS.Core.ECS
 {
     public class Entity
     {

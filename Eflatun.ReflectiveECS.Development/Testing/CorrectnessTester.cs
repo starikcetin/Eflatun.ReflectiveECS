@@ -1,6 +1,6 @@
 ﻿using System;
-using Eflatun.ReflectiveECS.Core.Core.ECS;
-using Eflatun.ReflectiveECS.Core.Core.Managers;
+using Eflatun.ReflectiveECS.Core.ECS;
+using Eflatun.ReflectiveECS.Core.Managers;
 using Eflatun.ReflectiveECS.Development.ECS;
 
 namespace Eflatun.ReflectiveECS.Development.Testing

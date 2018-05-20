@@ -39,15 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\ECS\Entity.cs" />
-    <Compile Include="Core\ECS\IComponent.cs" />
-    <Compile Include="Core\ECS\ISystem.cs" />
-    <Compile Include="Core\ExecuteAttribute.cs" />
-    <Compile Include="Core\Managers\Caching\SystemMetaData.cs" />
-    <Compile Include="Core\Managers\EntitiesDatabase.cs" />
-    <Compile Include="Core\Managers\EntityIdManager.cs" />
-    <Compile Include="Core\Managers\SystemsDatabase.cs" />
-    <Compile Include="Core\Managers\SystemsRunner.cs" />
+    <Compile Include="ECS\Entity.cs" />
+    <Compile Include="ECS\IComponent.cs" />
+    <Compile Include="ECS\ISystem.cs" />
+    <Compile Include="ExecuteAttribute.cs" />
+    <Compile Include="Managers\Caching\SystemMetaData.cs" />
+    <Compile Include="Managers\EntitiesDatabase.cs" />
+    <Compile Include="Managers\EntityIdManager.cs" />
+    <Compile Include="Managers\SystemsDatabase.cs" />
+    <Compile Include="Managers\SystemsRunner.cs" />
     <Compile Include="Optimization\FastInvoke\FastInvokeHandler.cs" />
     <Compile Include="Optimization\FastInvoke\FastInvokerGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
