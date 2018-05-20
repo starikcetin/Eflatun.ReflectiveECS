@@ -7,8 +7,8 @@
     <ProjectGuid>{CC7D8730-70CE-47F7-839E-357DD4E2F35F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ReflectiveECS</RootNamespace>
-    <AssemblyName>ReflectiveECS</AssemblyName>
+    <RootNamespace>Eflatun.ReflectiveECS.Core</RootNamespace>
+    <AssemblyName>Eflatun.ReflectiveECS.Core</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>7.2</LangVersion>
