@@ -1,4 +1,4 @@
-﻿namespace Eflatun.ReflectiveECS.Core.Core.ECS
+﻿namespace Eflatun.ReflectiveECS.Core.ECS
 {
     public interface IComponent
     {

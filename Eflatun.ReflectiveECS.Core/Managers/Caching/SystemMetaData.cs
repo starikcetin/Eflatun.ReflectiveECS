@@ -1,7 +1,7 @@
 ﻿using System;
 using Eflatun.ReflectiveECS.Core.Optimization.FastInvoke;
 
-namespace Eflatun.ReflectiveECS.Core.Core.Managers.Caching
+namespace Eflatun.ReflectiveECS.Core.Managers.Caching
 {
     internal class SystemMetaData
     {

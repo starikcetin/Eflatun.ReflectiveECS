@@ -1,4 +1,4 @@
-﻿using Eflatun.ReflectiveECS.Core.Core.ECS;
+﻿using Eflatun.ReflectiveECS.Core.ECS;
 
 namespace Eflatun.ReflectiveECS.Development.ECS
 {
