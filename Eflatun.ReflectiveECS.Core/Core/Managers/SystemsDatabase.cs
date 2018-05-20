@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using ReflectiveECS.Core.ECS;
+using Eflatun.ReflectiveECS.Core.Core.ECS;
 
-namespace ReflectiveECS.Core.Managers
+namespace Eflatun.ReflectiveECS.Core.Core.Managers
 {
     public class SystemsDatabase
     {

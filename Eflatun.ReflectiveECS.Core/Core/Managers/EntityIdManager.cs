@@ -1,4 +1,4 @@
-﻿namespace ReflectiveECS.Core.Managers
+﻿namespace Eflatun.ReflectiveECS.Core.Core.Managers
 {
     public class EntityIdManager
     {

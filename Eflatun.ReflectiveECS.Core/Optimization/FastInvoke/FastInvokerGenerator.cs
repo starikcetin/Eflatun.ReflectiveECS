@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace ReflectiveECS.Optimization.FastInvoke
+namespace Eflatun.ReflectiveECS.Core.Optimization.FastInvoke
 {
     public static class FastInvokerGenerator
     {

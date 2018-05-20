@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
-using System.Linq;
 
-namespace ReflectiveECS.Core.ECS
+namespace Eflatun.ReflectiveECS.Core.Core.ECS
 {
     public class Entity
     {

@@ -1,9 +1,9 @@
 ﻿using System;
-using Development.ECS;
-using ReflectiveECS.Core.ECS;
-using ReflectiveECS.Core.Managers;
+using Eflatun.ReflectiveECS.Core.Core.ECS;
+using Eflatun.ReflectiveECS.Core.Core.Managers;
+using Eflatun.ReflectiveECS.Development.ECS;
 
-namespace Development.Testing
+namespace Eflatun.ReflectiveECS.Development.Testing
 {
     public class CorrectnessTester
     {

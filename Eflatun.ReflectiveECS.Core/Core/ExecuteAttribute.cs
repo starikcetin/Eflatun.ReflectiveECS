@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ReflectiveECS.Core
+namespace Eflatun.ReflectiveECS.Core.Core
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class ExecuteAttribute : Attribute

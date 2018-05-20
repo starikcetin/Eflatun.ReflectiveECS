@@ -1,4 +1,4 @@
-﻿namespace ReflectiveECS.Core.ECS
+﻿namespace Eflatun.ReflectiveECS.Core.Core.ECS
 {
     public interface ISystem
     {

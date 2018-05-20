@@ -1,6 +1,6 @@
-﻿using Development.Testing;
+﻿using Eflatun.ReflectiveECS.Development.Testing;
 
-namespace Development
+namespace Eflatun.ReflectiveECS.Development
 {
     internal class Program
     {

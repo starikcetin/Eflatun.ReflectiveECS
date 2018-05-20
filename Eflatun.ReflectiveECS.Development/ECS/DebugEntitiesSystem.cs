@@ -1,8 +1,8 @@
 ﻿using System;
-using ReflectiveECS.Core;
-using ReflectiveECS.Core.ECS;
+using Eflatun.ReflectiveECS.Core.Core;
+using Eflatun.ReflectiveECS.Core.Core.ECS;
 
-namespace Development.ECS
+namespace Eflatun.ReflectiveECS.Development.ECS
 {
     public class DebugEntitiesSystem : ISystem
     {

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using ReflectiveECS.Core.ECS;
-using ReflectiveECS.Core.Managers.Caching;
-using ReflectiveECS.Optimization.FastInvoke;
+using Eflatun.ReflectiveECS.Core.Core.ECS;
+using Eflatun.ReflectiveECS.Core.Core.Managers.Caching;
+using Eflatun.ReflectiveECS.Core.Optimization.FastInvoke;
 
-namespace ReflectiveECS.Core.Managers
+namespace Eflatun.ReflectiveECS.Core.Core.Managers
 {
     public class SystemsRunner
     {
