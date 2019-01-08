@@ -126,8 +126,7 @@ Frames       20
 ```
 
 # License
-MIT license. Refer to the [LICENSE](https://github.com/starikcetin/Eflatun.ReflectiveECS/blob/master/LICENSE) file.
-
 This project includes third party code which are not explicitly licensed. Refer to the [LICENSE NOTICE](https://github.com/starikcetin/Eflatun.ReflectiveECS/blob/master/Eflatun.ReflectiveECS.Core/Optimization/FastInvoke/LICENSE%20NOTICE) file.
 
+MIT license. Refer to the [LICENSE](https://github.com/starikcetin/Eflatun.ReflectiveECS/blob/master/LICENSE) file.
 Copyright (c) 2018 S. Tarık Çetin
