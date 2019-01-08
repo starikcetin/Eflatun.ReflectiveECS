@@ -1,3 +1,11 @@
+This project includes third party code which are not explicitly licensed. Refer to the 
+LICENSE NOTICE 
+file under 
+Eflatun.ReflectiveECS.Core/Optimization/FastInvoke/ 
+directory.
+
+For anything else, following conditions apply:
+
 MIT License
 
 Copyright (c) 2018 S. Tarık Çetin
